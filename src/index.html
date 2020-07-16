@@ -8,12 +8,19 @@
 <body>
   <h1 class='head'>My Bookmarks</h1>
   <div class="markNew"></div>
-  <div class="markFilt">
-      <div class="1star"></div>
-      <div class="2star"></div>
-      <div class="3star"></div>
-      <div class="4star"></div>
-      <div class="5star"></div>
+  <div class="filter">
+    <form action="/index.js" method="get">
+        <input list="filters" name="filter" id="filter" placeholder = "filter by rating">
+        <datalist id="filters">
+          <option value="1">
+          <option value="2">
+          <option value="3">
+          <option value="4">
+          <option value="5">
+          <option value="No Filter">
+        </datalist>
+      </form>
+      
   </div>
   <div class="titles">
       <div class="titlesCurrent">
