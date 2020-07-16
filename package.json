@@ -1,0 +1,23 @@
+{
+  "name": "BOOKMARKS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kayleighkat98/BOOKMARKS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kayleighkat98/BOOKMARKS/issues"
+  },
+  "homepage": "https://github.com/kayleighkat98/BOOKMARKS#readme",
+  "dependencies": {
+    "jquery": "^3.5.1"
+  }
+}
