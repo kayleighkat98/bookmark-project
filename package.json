@@ -1,5 +1,5 @@
 {
-  "name": "BOOKMARKS",
+  "name": "kays-bookmarks",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -16,8 +16,5 @@
   "bugs": {
     "url": "https://github.com/kayleighkat98/BOOKMARKS/issues"
   },
-  "homepage": "https://github.com/kayleighkat98/BOOKMARKS#readme",
-  "dependencies": {
-    "jquery": "^3.5.1"
-  }
+  "homepage": "https://github.com/kayleighkat98/BOOKMARKS#readme"
 }
