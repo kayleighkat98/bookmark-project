@@ -2,31 +2,112 @@ import $ from 'jquery';
 import store from './store';
 import api from './api';
 
+/*
+const generateStars = function (numStars) {
+  switch (numStars) {
+    case 1:
+      return '★☆☆☆☆';
+    case 2:
+      return '★★☆☆☆';
+    case 3:
+      return '★★★☆☆';
+    case 4:
+      return '★★★★☆';
+    case 5:
+      return '★★★★★';
+    default:
+      return 'Error, star not in range';
+  }
+}
+
+const generateBookmarkItem = function (bookmark) {
+  return $(`
+    <li class="item" id=${item.id}>
+      <div class="group">
+        <h3 class="inline-block item">${item=.title}</h3>
+        <p class="inline-block item">${generateStars(item.rating)}</p>
+        <div class="hiddennnn group">
+          <a href=${bookmark.url}>Visit Site</a>
+          <p>${bookmark.desc}</p>
+          <button type="submit" class="remove">Remove</button>
+        </div>
+      </div>
+    </li>
+  `);
+}
+
+// EVENT HANDLER FUNCTIONS
+
+const handleFilter = function () {
+  $('header').on('click', '.filter', function(evt) {
+    evt.preventDefault();
+    $('header.add-area').toggleClass("hidden");
+  })
+}
+
+const handleAddNewBookmark = function () {
+  $('header').on('click', '.add-new', function(evt) {
+   
+*/
+
+/*const generateStars = function (numStars) {
+    switch (numStars) {
+      case 1:
+        return '★☆☆☆☆';
+      case 2:
+        return '★★☆☆☆';
+      case 3:
+        return '★★★☆☆';
+      case 4:
+        return '★★★★☆';
+      case 5:
+        return '★★★★★';
+      default:
+        return 'Error, star not in range';
+    }
+};*/
+
+
+
 const generateItemElement = function (item) { //item is the definition of the current object and all
     let itemTitle = `<span class="bookmark bookmark_filtered">${item.title}${item.rating}</span>`; //affects filtered items
 
     //REMEMBER TO ADD DELETE FUNCTION AND ICON
     return `
         <li class="js-bookmark" data-item-id="${item.id}">
-            <button type='button' id="bookmarkHead"
+            <button type='button' class="js-bookmarkHead">
                 ${itemTitle}
             </button>
-            <div id="js-bookmarkInfo" >
-                <button class="js-item-delete">
-                    delete</span>
-                </button>
+            <div id="js-bookmarkInfo" class="hidden" >
+                <button class="js-item-delete">Delete</button>
            
             
                 <button class="visit">
                     <a href="${item.url}"target=blank>Visit</a>
                 </button>
-                <div class="description"
-                    ${item.description}
+                <div class="description">
+                    ${item.desc}
                 </div>
             </div>
         </li>`;
 
 };
+
+/*const generateBookmarkItem = function (item) {
+    return $(`
+      <li class="js-bookmark"  data-item-id="${item.id}">
+        <div class="group">
+          <h3 class="inline-block item">${item.title}</h3>
+          <p class="inline-block item">${generateStars(item.rating)}</p>
+          <div class="hidden">
+            <a href=${item.url}>Visit Site</a>
+            <p>${item.desc}</p>
+          </div>
+        </div>
+      </li>
+    `);
+}*/
+
 
 const generateBookmarkString = function (bookmarks) {
     const items = bookmarks.map((item) => {
@@ -88,12 +169,12 @@ const handleNewItemSubmit = function () {
         event.preventDefault();
         const newItemUrl = $('.js-newLink').val();
         const newItemName = $('.js-newName').val();
-        const newItemRating = $('.js-newRating').val();
+        const newItemRating = 4;
         const newItemDescription = $('.js-newDescription').val();
         const newItemContent = {
             title : newItemName,   
             url : newItemUrl,
-            description: newItemDescription,
+            desc: newItemDescription,
             rating : newItemRating
         };
         $('.js-newLink').val('');
@@ -101,11 +182,12 @@ const handleNewItemSubmit = function () {
         $('.js-newRating').val('');
         $('.js-newDescription').val('');
         $('#js-bookmarks').removeClass('hidden');
-    
+   
         api.createItem(newItemContent) //ROOM FOR ERROR
             .then((newItem) => {
-                render();
                 store.addItem(newItem);
+                render();
+
                 
             })
             .catch((error) => {

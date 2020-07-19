@@ -1,4 +1,4 @@
-const items = [{}];
+const items = [];
 let error = null;
 let filterItem = false;
 //finds targeted item in the server

@@ -1,5 +1,5 @@
 //sets the origin link where all data is stored
-const BASE_URL = ' https://thinkful-list-api.herokuapp.com/kay/bookmarks';
+const BASE_URL = ' https://thinkful-list-api.herokuapp.com/kay/bookmarks/';
 
 const bookmarkApiFetch = function (...args) {
   let error;
@@ -42,7 +42,7 @@ function createItem(name) {
   });
 }
 function deleteItem(id) {
-  return bookmarkApiFetch(BASE_URL + id, {
+  return bookmarkApiFetch(`${BASE_URL+id}`, {
     method: 'DELETE'
   });
 }
