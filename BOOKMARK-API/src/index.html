@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 class='head'>My Bookmarks</h1>
+    <button type="button" class="js-new">+ New Bookmark</button>
+    <!--adds dropdown filter-->
+    <div class="filter">
+        <form action="./index.js" method="POST" id="filter">
+            <input list="filters" name="filter" id="filter" placeholder="filter by rating"
+                onChange="document.getElementById('filter').submit()">
+            <datalist id="filters">
+                <option value="1">
+                <option value="2">
+                <option value="3">
+                <option value="4">
+                <option value="5">
+                <option value="No Filter">
+            </datalist>
+        </form>
+    </div>
+
+    <form  id="js-newBookmark" class="hidden">
+        <input type="text" name="newLink" class="js-newLink" placeholder="Type the link here" required>
+        <input type="text" name="newName" class="js-newName" placeholder="What would you like to call this bookmark?" required>
+        <div class="js-newRating"></div>
+        <input type="text" name="newDescription" class="js-newDescription" placeholder="Add your description">
+        <button type="reset" value="cancel">Cancel</button>
+        <button type="submit" class='js-create' value="create">Create</button>
+    </form>  
+
+    <ul id="js-bookmarks">
+    </ul>
+
+</body>
+
+</html>
+<!--        
+    <h3>
+        <button aria-expanded="true" class="bookmarkTrigger" aria-controls="dropdown" id="accordion1id">
+            <span class="bookmarkItem">
+                <span class ="name"></span>
+                <span class="dropdownIcon"></span>
+            </span>
+        </button>
+    </h3>
+-->
