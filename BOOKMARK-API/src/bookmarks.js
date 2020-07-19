@@ -91,21 +91,22 @@ const handleNewItemSubmit = function () {
         const newItemRating = $('.js-newRating').val();
         const newItemDescription = $('.js-newDescription').val();
         const newItemContent = {
-            newItemUrl,
-            newItemName,
-            newItemRating,
-            newItemDescription
+            title : newItemName,   
+            url : newItemUrl,
+            description: newItemDescription,
+            rating : newItemRating
         };
         $('.js-newLink').val('');
         $('.js-newName').val('');
         $('.js-newRating').val('');
         $('.js-newDescription').val('');
-        console.log(newItemContent);
         $('#js-bookmarks').removeClass('hidden');
-        api.createItem({newItemContent}) //ROOM FOR ERROR
+    
+        api.createItem(newItemContent) //ROOM FOR ERROR
             .then((newItem) => {
-                store.addItem(newItem);
                 render();
+                store.addItem(newItem);
+                
             })
             .catch((error) => {
                 store.setError(error.message);
@@ -113,6 +114,7 @@ const handleNewItemSubmit = function () {
             });
     });
 };
+
 const getItemIdFromElement = function (item) {
     return $(item)
         .closest('.js-bookmark')
@@ -129,7 +131,6 @@ const handleDeleteItemClicked = function () {
                 render();
             })
             .catch((error) => {
-                console.log(error);
                 store.setError(error.message);
                 renderError();
             });

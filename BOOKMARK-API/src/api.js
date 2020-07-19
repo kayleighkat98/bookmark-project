@@ -31,7 +31,8 @@ function getMarks() {
 }
 
 function createItem(name) {
-  const newItem = JSON.stringify({name});
+  const newItem = JSON.stringify(name);
+  console.log(newItem);
   return bookmarkApiFetch(`${BASE_URL}`, {
     method: 'POST',
     headers: {
