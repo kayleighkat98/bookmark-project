@@ -9,8 +9,8 @@ const main = function () {
       .then((items) => {
         items.forEach((item) => store.addItem(item));
         bookmarks.render();
+        $( ".js-bookmarkDrop" ).hide();
       });
-   
     bookmarks.bindEventListeners();
     bookmarks.render();
   };

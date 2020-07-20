@@ -50,7 +50,7 @@ const handleAddNewBookmark = function () {
    
 */
 
-/*const generateStars = function (numStars) {
+const generateStars = function (numStars) {
     switch (numStars) {
       case 1:
         return '★☆☆☆☆';
@@ -65,48 +65,29 @@ const handleAddNewBookmark = function () {
       default:
         return 'Error, star not in range';
     }
-};*/
+};
 
 
 
 const generateItemElement = function (item) { //item is the definition of the current object and all
-    let itemTitle = `<span class="bookmark bookmark_filtered">${item.title}${item.rating}</span>`; //affects filtered items
-
-    //REMEMBER TO ADD DELETE FUNCTION AND ICON
+    const rating = `<p>${generateStars(item.rating)}</p>`
     return `
-        <li class="js-bookmark" data-item-id="${item.id}">
-            <button type='button' class="js-bookmarkHead">
-                ${itemTitle}
-            </button>
-            <div id="js-bookmarkInfo" class="hidden" >
-                <button class="js-item-delete">Delete</button>
-           
+        <li class="js-bookmark"  data-item-id="${item.id}">
+            <button class="js-bookmarkHead">${item.title}</button> 
             
-                <button class="visit">
-                    <a href="${item.url}"target=blank>Visit</a>
-                </button>
-                <div class="description">
-                    ${item.desc}
-                </div>
+            <button class="js-item-delete">Delete</button> 
+            ${rating}
+            <div class='js-bookmarkDrop' >
+                <p>Bookmark Description:</p>
+                <p>${item.desc}</p>
+                <button><a href=${item.url}>Visit Site</a></button>
             </div>
-        </li>`;
+        </li>
+    `;
 
 };
 
-/*const generateBookmarkItem = function (item) {
-    return $(`
-      <li class="js-bookmark"  data-item-id="${item.id}">
-        <div class="group">
-          <h3 class="inline-block item">${item.title}</h3>
-          <p class="inline-block item">${generateStars(item.rating)}</p>
-          <div class="hidden">
-            <a href=${item.url}>Visit Site</a>
-            <p>${item.desc}</p>
-          </div>
-        </div>
-      </li>
-    `);
-}*/
+
 
 
 const generateBookmarkString = function (bookmarks) {
@@ -169,7 +150,7 @@ const handleNewItemSubmit = function () {
         event.preventDefault();
         const newItemUrl = $('.js-newLink').val();
         const newItemName = $('.js-newName').val();
-        const newItemRating = 4;
+        const newItemRating = $('.js-newRating').val();
         const newItemDescription = $('.js-newDescription').val();
         const newItemContent = {
             title : newItemName,   
@@ -220,21 +201,11 @@ const handleDeleteItemClicked = function () {
 };
 
 
-const handleToggleExpandClick = function () {
-    $('#bookmarkHead').click(() => {
-            $('#js-bookmarkInfo').removeClass('hidden');
-            render();
-        });
-
-};
-
-
 
 const bindEventListeners = function () {
     newItemPage();
     handleNewItemSubmit();
     handleDeleteItemClicked();
-    handleToggleExpandClick();
     handleCloseError();
 };
 export default {
