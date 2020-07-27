@@ -43,6 +43,5 @@ export default {
     findById,
     addItem,
     findAndDelete,
-    //toggleFilter,
     setError
 };

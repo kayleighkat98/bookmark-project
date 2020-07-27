@@ -50,6 +50,8 @@ const handleAddNewBookmark = function () {
    
 */
 
+
+
 const generateStars = function (numStars) {
     switch (numStars) {
       case 1:
@@ -70,32 +72,89 @@ const generateStars = function (numStars) {
 
 
 const generateItemElement = function (item) { //item is the definition of the current object and all
-    const rating = `<p>${generateStars(item.rating)}</p>`
+  console.log(item.id);
+  
     return `
         <li class="js-bookmark"  data-item-id="${item.id}">
-            <button class="js-bookmarkHead">${item.title}</button> 
-            
-            <button class="js-item-delete">Delete</button> 
-            ${rating}
-            <div class='js-bookmarkDrop' >
+         
+            <div class='bookmarkStarter'>
+                <h3 class="js-bookmarkHead">${item.title}</h3> 
+                <p>${generateStars(item.rating)}</p>
+            </div>
+
+            <div class='js-bookmarkDrop' class='hidden'>
                 <p>Bookmark Description:</p>
                 <p>${item.desc}</p>
-                <button><a href=${item.url}>Visit Site</a></button>
+                <button><a href=${item.url} target="_blank" >Visit Site</a></button>
+                <button class="js-item-delete">Delete</button> 
             </div>
         </li>
     `;
-
+    
 };
+/*click plans
+1
+filter ul bookmarks li
+if li === li clicked
+toggle bookmarkDrop class ('hidden')
+2
+when clicking
 
 
+*/
+
+
+
+$("ul.js-bookmarks").click((event) =>{
+// console.log($("ul.js-bookmarks"));
+// console.log(event.target.getAttribute('data-item-id'));
+// console.log(event.target.getAttribute(".js-bookmarkDrop"));
+let bookmarks = $(' ul.js-bookmarks').children(".js-bookmark");
+let bookmark = bookmarks.children(".js-bookmarkDrop");
+console.log('kid',bookmark);
+bookmark.toggleClass( 'hidden' );
+// event.target.getAttribute('data-item-id').find( ".js-bookmarkDrop" )
+    
+});
+
+
+  // $("ul").click((event) =>{
+  //   // console.log($("ul.js-bookmarks"));
+  //   // console.log(event.target.getAttribute('data-item-id'));
+  //   // console.log(event.target.getAttribute(".js-bookmarkDrop"));
+  // console.log('demo');
+  // const kids = $( event.target ).children('.js-bookmarkDrop');
+
+  //   kids.toggleClass( 'hidden' );
+  // // event.target.getAttribute('data-item-id').find( ".js-bookmarkDrop" )
+
+  // });
 
 
 const generateBookmarkString = function (bookmarks) {
     const items = bookmarks.map((item) => {
-        return generateItemElement(item);
+      
+//rather than returning what i have i could/should append it to the page with an event listener
+        return generateItemElement(item);//attatch click listener here?
     });
     return items.join('');
 };
+
+
+
+
+
+
+// const showInfo = function () {
+//     $('.bookmarkStarter').click(()=> {
+//         $( ".js-bookmarkDrop" ).show();
+//         console.log('pie');
+//     });
+    
+// };
+
+
+  
 
 const generateError = function (message) {
     return `<section class="error-content">
@@ -130,21 +189,20 @@ const render = function () {
 
     // render the list in the DOM
     const bookmarkItemString = generateBookmarkString(items);
-
-
     // insert that HTML into the DOM
-    $('#js-bookmarks').html(bookmarkItemString);
+    $('.js-bookmarks').html(bookmarkItemString);
 };
 
 const newItemPage = function () {
     $('.js-new').click(() => {
     
         $('#js-newBookmark').removeClass('hidden');
-        $('#js-bookmarks').addClass('hidden');
+        $('.js-bookmarks').addClass('hidden');
     });
 };
 
-//
+
+
 const handleNewItemSubmit = function () {
     $('.js-create').click(function (event) {
         event.preventDefault();
@@ -162,7 +220,7 @@ const handleNewItemSubmit = function () {
         $('.js-newName').val('');
         $('.js-newRating').val('');
         $('.js-newDescription').val('');
-        $('#js-bookmarks').removeClass('hidden');
+        $('.js-bookmarks').removeClass('hidden');
    
         api.createItem(newItemContent) //ROOM FOR ERROR
             .then((newItem) => {
@@ -178,6 +236,32 @@ const handleNewItemSubmit = function () {
     });
 };
 
+
+// $($(this).data("id"))
+
+// $("ul[data-item-id=item-id]")
+
+// $(ul["data-item-id"="item-id"])
+
+// ul[data-item-id=item-id]
+
+// [attribute = value] { css declarations; }
+
+
+// $('ul.js-bookmarks ').on("click","js-bookmark",function() {
+//     $(this).find(".js-bookmarkDrop").toggleClass( 'hidden' );
+// });
+// $('.js-bookmarkDrop').click(function(event) {
+//     alert(event.currentTarget.getElementsByTagName('li')[0].className);
+//     $( ".js-bookmarkDrop" ).toggleClass( 'hidden' );
+// });
+
+// $('.js-bookmark-drop ').click(function(event) {
+//     //alert(event.currentTarget.List)
+//    // $(this).toggleClass( 'hidden' );
+//    console.log(cat)
+// });
+
 const getItemIdFromElement = function (item) {
     return $(item)
         .closest('.js-bookmark')
@@ -185,7 +269,7 @@ const getItemIdFromElement = function (item) {
 };
 
 const handleDeleteItemClicked = function () {
-    $('#js-bookmarks').on('click', '.js-item-delete', event => {
+    $('ul.js-bookmarks').on('click', '.js-item-delete', event => {
         const id = getItemIdFromElement(event.currentTarget);
 
         api.deleteItem(id)
@@ -200,13 +284,19 @@ const handleDeleteItemClicked = function () {
     });
 };
 
+//const handleDropItem = function (){
 
+  //}
 
 const bindEventListeners = function () {
     newItemPage();
+    // showInfo();
+    // handleDropItem();
+  
     handleNewItemSubmit();
     handleDeleteItemClicked();
     handleCloseError();
+
 };
 export default {
     render,
