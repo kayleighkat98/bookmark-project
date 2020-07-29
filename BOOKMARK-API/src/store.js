@@ -27,11 +27,6 @@ const hide = function (){
     this.addClass("hidden");
 };
 
-
-/*const toggleFilter = function () {
-    this.filterItem = !this.filterItem;
-};*/
-
 const setError = function (error) {
     this.error = error;
 };

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import store from './STORE';
 import api from './api';
-import addBookmark from './AddBookmark'
+
 
 
 ///
@@ -25,7 +25,7 @@ const generateStars = function (numStars) {
 
 ///
 const generateItemElement = function (item) { //item is the definition of the current object and all
-    console.log(item.id);
+
     return `
       <li class='js-bookmark'data-item-id="${item.id}" >
         <button class='bookmark' 'data-item-id="${item.id} >
@@ -41,6 +41,7 @@ const generateItemElement = function (item) { //item is the definition of the cu
             </div>
         
       </li>
+      </br>
     `
   ;
     
@@ -92,18 +93,25 @@ const render = function () {
     $('.js-bookmarks').html(bookmarkItemString);
 };
 
-const newItemPage = function ()
-$('ul.js-bookmarks').on('click', '.js-bookmark', event => {
-    const id = $(event.currentTarget).children('.js-bookmarkDrop');
-    id.toggleClass('hidden');    
-    });
+// $('ul.js-bookmarks').on('click', '.js-bookmark', event => {
+//     const id = $(event.currentTarget).children('.js-bookmarkDrop');
+//     id.toggleClass('hidden');    
+//     });
 
-
- {
+const AddNewItemForm = function (){
     $('.js-new').click(() => {
     
         $('#js-newBookmark').removeClass('hidden');
         $('.js-bookmarks').addClass('hidden');
+    });
+
+  
+};
+const removeNewItemPage = function (){
+    $('#js-reset').click(() => {
+    
+        $('#js-newBookmark').addClass('hidden');
+        $('.js-bookmarks').removeClass('hidden');
     });
 
   
@@ -166,9 +174,20 @@ const handleDeleteItemClicked = function () {
             });
     });
 };
-
+// console.log(store.items[0].rating);
+// const ratings = function( ){
+//     let ratings = []
+ 
+//     store.items.map((item,i)=>(
+//        ratings.push((item[i].rating))
+//     //    console.log
+//     ))
+//     console.log([...ratings]) ;
+// };
+// ratings()
 const bindEventListeners = function () {
-    newItemPage(); 
+    removeNewItemPage();
+    AddNewItemForm();
     handleNewItemSubmit();
     handleDeleteItemClicked();
     handleCloseError();
