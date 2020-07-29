@@ -1,9 +1,10 @@
 import $ from 'jquery';
 import store from './STORE';
 import api from './api';
+import addBookmark from './AddBookmark'
 
 
-
+///
 const generateStars = function (numStars) {
     switch (numStars) {
       case 1:
@@ -22,7 +23,7 @@ const generateStars = function (numStars) {
 };
 
 
-
+///
 const generateItemElement = function (item) { //item is the definition of the current object and all
     console.log(item.id);
     return `
@@ -51,7 +52,7 @@ $('ul.js-bookmarks').on('click', '.js-bookmark', event => {
   id.toggleClass('hidden');    
   });
 
-
+///
 const generateBookmarkString = function (bookmarks) {
     const items = bookmarks.map((item) => {
         return generateItemElement(item);
@@ -83,7 +84,7 @@ const handleCloseError = function () {
         renderError();
     });
 };
-
+//
 const render = function () {
     renderError();
     let items = [...store.items];
@@ -91,12 +92,21 @@ const render = function () {
     $('.js-bookmarks').html(bookmarkItemString);
 };
 
-const newItemPage = function () {
+const newItemPage = function ()
+$('ul.js-bookmarks').on('click', '.js-bookmark', event => {
+    const id = $(event.currentTarget).children('.js-bookmarkDrop');
+    id.toggleClass('hidden');    
+    });
+
+
+ {
     $('.js-new').click(() => {
     
         $('#js-newBookmark').removeClass('hidden');
         $('.js-bookmarks').addClass('hidden');
     });
+
+  
 };
 
 
