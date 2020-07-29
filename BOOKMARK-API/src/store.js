@@ -1,7 +1,7 @@
 const items = [];
 let error = null;
 let filterItem = false;
-//finds targeted item in the server
+
 const findById = function (id) {
     return this.items.find(currentItem => currentItem.id === id);
 };
