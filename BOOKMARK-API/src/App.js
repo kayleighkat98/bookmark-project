@@ -22,8 +22,29 @@ const generateStars = function (numStars) {
     }
 };
 
-
+//console.log(document.getElementById("js-filter").value)
 ///
+
+// const filterValue = function (item){
+// $(document.body).on('change',"#js-filter",function () {
+//     //doStuff
+//     item = $("#js-filter option:selected").val();
+// const filterValue = 
+// });
+// console.log('ass', filterValue);
+// }
+// let filterValue = 0;
+// function updateValue (item){
+//     item = $(document.body);
+//     item.on('change',"#js-filter", () =>  {
+//         item = $("#js-filter option:selected").val(); 
+//     });
+//     filterValue= item
+//     console.log(filterValue)
+// }
+
+
+
 const generateItemElement = function (item) { //item is the definition of the current object and all
 
     return `
@@ -48,12 +69,6 @@ const generateItemElement = function (item) { //item is the definition of the cu
 };
 
 
-$('ul.js-bookmarks').on('click', '.js-bookmark', event => {
-  const id = $(event.currentTarget).children('.js-bookmarkDrop');
-  id.toggleClass('hidden');    
-  });
-
-///
 const generateBookmarkString = function (bookmarks) {
     const items = bookmarks.map((item) => {
         return generateItemElement(item);
@@ -61,7 +76,24 @@ const generateBookmarkString = function (bookmarks) {
     return items.join('');
 };
 
+// const generateBookmarkData = function (bookmarks) {
+//     const itemData = bookmarks.map((item,i) => {
+//         return (Object.values(item))
+//     });
+
+// };
+// const updateValue = function (item){
+//     item = $(document.body);
+//     item.on('change',"#js-filter", () =>  {
+//         store.filterValue = $("#js-filter option:selected").val(); 
+//         //console.log( store.filterValue);
+//         return store.filterValue
+//     });
+//     ;
+
   
+// };
+
 
 const generateError = function (message) {
     return `<section class="error-content">
@@ -77,7 +109,6 @@ const renderError = function () {
     } else {
         $('.error-container').empty();
     }
-    console.log ([...store.items]);
 };
 
 const handleCloseError = function () {
@@ -89,15 +120,18 @@ const handleCloseError = function () {
 //
 const render = function () {
     renderError();
+ 
     let items = [...store.items];
     const bookmarkItemString = generateBookmarkString(items);
+    //const itemData = generateBookmarkData(items);
     $('.js-bookmarks').html(bookmarkItemString);
+    //console.log(items)
 };
 
-// $('ul.js-bookmarks').on('click', '.js-bookmark', event => {
-//     const id = $(event.currentTarget).children('.js-bookmarkDrop');
-//     id.toggleClass('hidden');    
-//     });
+$('ul.js-bookmarks').on('click', '.js-bookmark', event => {
+    const id = $(event.currentTarget).children('.js-bookmarkDrop');
+    id.toggleClass('hidden');    
+    });
 
 const AddNewItemForm = function (){
     $('.js-new').click(() => {
@@ -143,8 +177,8 @@ const handleNewItemSubmit = function () {
             .then((newItem) => {
                 store.addItem(newItem);
                 render();
-
                 
+
             })
             .catch((error) => {
                 store.setError(error.message);
@@ -187,14 +221,18 @@ const handleDeleteItemClicked = function () {
 // };
 // ratings()
 const bindEventListeners = function () {
+    //updateValue();
     removeNewItemPage();
     AddNewItemForm();
     handleNewItemSubmit();
     handleDeleteItemClicked();
     handleCloseError();
-
+    
 };
 export default {
+    //filterValue,
     render,
-    bindEventListeners
+
+    bindEventListeners,
+    
 };
