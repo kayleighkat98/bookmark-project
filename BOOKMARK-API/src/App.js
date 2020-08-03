@@ -77,6 +77,7 @@ const renderError = function () {
     } else {
         $('.error-container').empty();
     }
+    console.log ([...store.items]);
 };
 
 const handleCloseError = function () {
@@ -108,7 +109,7 @@ const AddNewItemForm = function (){
   
 };
 const removeNewItemPage = function (){
-    $('#js-reset').click(() => {
+    $('#cancelNewBookmark').click(() => {
     
         $('#js-newBookmark').addClass('hidden');
         $('.js-bookmarks').removeClass('hidden');
@@ -120,7 +121,7 @@ const removeNewItemPage = function (){
 
 
 const handleNewItemSubmit = function () {
-    $('.js-create').click(function (event) {
+    $('.createNewBookmark').click(function (event) {
         event.preventDefault();
         const newItemUrl = $('.js-newLink').val();
         const newItemName = $('.js-newName').val();

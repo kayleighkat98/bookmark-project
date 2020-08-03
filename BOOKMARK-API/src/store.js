@@ -11,10 +11,6 @@ const addItem = function (item) {
     this.items.push(item);
 };
 
-/*const findAndUpdate = function (id, newData) {
-    const item = this.findById(id);
-    Object.assign(item, newData);
-};*/
 
 const findAndDelete = function (id) {
     this.items = this.items.filter(currentItem => currentItem.id !== id);

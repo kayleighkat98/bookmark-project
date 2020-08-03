@@ -8,9 +8,14 @@
 </head>
 
 <body>
+    
+    <!--title-->    
     <h1 class='head'>My Bookmarks</h1>
+
+    <!--new bookmark button-->
     <button type="button" class="js-new">+ New Bookmark</button>
-    <!--adds dropdown filter-->
+    
+    <!-- dropdown filter-->
     <div class="filter">
         <select name="Filter" id="js-filter" form="carform">
             <option value="1">★☆☆☆☆</option>
@@ -21,28 +26,20 @@
         </select>
     </div>
 
+    <!--bookmark input fields-->
     <form  id="js-newBookmark" class="hidden">
         <input type="text" class="js-newLink" placeholder="address" required>
         <input type="text" class="js-newName" placeholder="name" required>
         <input class="js-newRating" type="text" placeholder=" 1-5" required>
         <input type="text" class="js-newDescription" placeholder="Description">
-        <button type="reset" id='js-reset' value="cancel">Cancel</button>
-        <button type="submit" class='js-create' value="create">Create</button>
+        <button type="reset" id='cancelNewBookmark' value="cancel">Cancel</button>
+        <button type="submit" class='createNewBookmark' value="create">Create</button>
     </form>  
 
+    <!--filterable bookmarks-->
     <ul class="js-bookmarks">
     </ul>
 
 </body>
 
 </html>
-<!--        
-    <h3>
-        <button aria-expanded="true" class="bookmarkTrigger" aria-controls="dropdown" id="accordion1id">
-            <span class="bookmarkItem">
-                <span class ="name"></span>
-                <span class="dropdownIcon"></span>
-            </span>
-        </button>
-    </h3>
--->

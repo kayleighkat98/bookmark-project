@@ -9,7 +9,6 @@ const main = function () {
       .then((items) => {
         items.forEach((item) => store.addItem(item));
         bookmarks.render();
-        
       });
     bookmarks.bindEventListeners();
     bookmarks.render();
