@@ -1,6 +1,10 @@
-//sets the origin link where all data is stored
+/* DECLARE API */
+
+
+//declare base url
 const BASE_URL = ' https://thinkful-list-api.herokuapp.com/kay/bookmarks/';
 
+//create fetch statement that will also catch errors
 const bookmarkApiFetch = function (...args) {
   let error;
   return fetch(...args)
@@ -26,13 +30,14 @@ const bookmarkApiFetch = function (...args) {
     });
 };
 
+//GET
 function getMarks() {
   return bookmarkApiFetch(`${BASE_URL}`);
 }
 
+//POST
 function createItem(name) {
   const newItem = JSON.stringify(name);
-  // console.log(newItem);
   return bookmarkApiFetch(`${BASE_URL}`, {
     method: 'POST',
     headers: {
@@ -41,8 +46,20 @@ function createItem(name) {
     body: newItem
   });
 }
+
+//PATCH
+function editItem(id, updateData){
+  const newData = JSON.stringify(updateData);
+  return listApiFetch(`${BASE_URL}/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: newData
+  });
+}
+
+//DELETE
 function deleteItem(id) {
-  return bookmarkApiFetch(`${BASE_URL+id}`, {
+  return bookmarkApiFetch(`${BASE_URL}/${id}`, {
     method: 'DELETE'
   });
 }
@@ -51,5 +68,7 @@ function deleteItem(id) {
 export default {
   getMarks,
   createItem,
+  editItem,
   deleteItem,
+
 };

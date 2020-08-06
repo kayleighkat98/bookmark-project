@@ -1,42 +1,22 @@
-//import $ from 'jquery';
+import $ from 'jquery';
 const items = [];
 let error = null;
-let filterItem = false;
-let filterValue = 0;
-
-
+let minimumRating= 0;
 
 const addItem = function (item) {
     this.items.push(item);
+
 };
 
-// const updateValue = function (items){
 
-//     this.filterValue= $(document.body).on('change',"#js-filter", () =>  {
-//         this.filterValue = $("#js-filter option:selected").val(); 
-//     });
-//     return filterValue;
-// };
-
-// const filterList = function (item) {
-
-    
-    
-//     filterValue= item
-//     console.log(filterValue)
-
-// };
-//console.log(currentItem)
 const findAndDelete = function (id) {
     this.items = this.items.filter(currentItem => currentItem.id !== id);
 };
 
-const unHide = function (){
-    this.removeClass("hidden");
-};
-const hide = function (){
-    this.addClass("hidden");
-};
+const findAndUpdate = function(id, newData){
+    const bookmark = this.findById(id);
+    Object.assign(bookmark, newData);
+  };
 
 const setError = function (error) {
     this.error = error;
@@ -45,10 +25,8 @@ const setError = function (error) {
 export default {
     items,
     error,
-    //updateValue,
-    filterValue,
-    unHide,
-    hide,
+    minimumRating,
+    findAndUpdate,
     addItem,
     findAndDelete,
     setError
