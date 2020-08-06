@@ -8,23 +8,27 @@ TO DO
                     - rating must be between 1-5
                     - name must exist
         also, make the label 'required' red.
-    -
+    -adjust hidden toggle to hide new bookmark form when submit is clicked with no errors
 
 
 -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+    </style>
     <title>Document</title>
 </head>
 
 <body>
 
     <!--title-->    
-    <h1 class='head'>My Bookmarks</h1>
+    <h1 class='head'>My (online)Bookshelf</h1>
 
     <!--new bookmark button-->
     <button type="button" class="js-new">+ New Bookmark</button>
+    <br>
     <br>
     <!-- dropdown filter-->
     <label for="filter">Filter :</label>
@@ -67,7 +71,7 @@ TO DO
     </form>  
 
     <!--filterable bookmarks-->
-    <ul class="js-bookmarks">
+    <ul class="bookmarkList">
     </ul>
 
 </body>
