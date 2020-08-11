@@ -24,14 +24,12 @@ body {
 }
 .bookmarkContents{
 
-    /* padding-right: 20%;
-    padding-left: 20%; */
     width: 95%;
     background-color: rgb(208, 238, 178);
 }
 
 button:hover {
-    background-color: #6d4449; /* Green */
+    background-color: #6d4449;
     color: white;
   }
 h1{

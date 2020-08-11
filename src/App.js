@@ -176,12 +176,7 @@ const removeNewItemPage = function (){
 };
 
 
-
-
-//store.filterValue
 const bindEventListeners = function () {
-    //updateValue();
-    //filterValue();
     handleMinimumRatingFilter();
     removeNewItemPage();
     AddNewItemForm();
@@ -191,40 +186,7 @@ const bindEventListeners = function () {
     
 };
 export default {
-    //filterValue,
     render,
-    //filterValue,
     bindEventListeners,
     
 };
-// const filterValue = function (item) {
-//     $( "select" ).change(function () {
-//         $( "select option:selected" ).each(function() {
-//             filterValue = ( $( this ).val() + " ");
-//         //     return filterValue
-//         // })
-//         // .then( (value) =>{
-//         //     if (value == item.rating){
-//         //         console.log('hurray!')
-//         //     }
-//         });
-        
-
-
-//         // if (filterValue< 1){
-//         //     this.removeClass('hidden');
-//         // } else 
-//         // if (filterValue != 3){
-//         //     //console.log('carrot');
-
-//         //     this.addClass('hidden');
-//         // } else 
-//         // if (filterValue == 3){
-//         //     //console.log('camel');
-//         //     this.removeClass('hidden');
-//         // } else{
-//         //     console.log('FAIL');
-//         // }
-
-//     });
-// };
