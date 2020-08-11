@@ -4,11 +4,7 @@ import './index.css';
 import store from './STORE';
 import bookmarks from './App';
 
-// if (bookmarks.filterValue() == null){
-//   console.log ('Yes')
-// } else {
-//   console.log('NO')
-// }
+
 
 
 
