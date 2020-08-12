@@ -31,11 +31,12 @@ const generateStars = function (numStars) {
 
 const generateItemElement = function (bookmark) { 
     return `
-      <li class='js-bookmark'data-item-id="${bookmark.id}" >
-        <button class='bookmark' 'data-item-id="${bookmark.id} >
+      <li class='entireBookmark'data-item-id="${bookmark.id}" >
+        <button class='bookmarkButton' 'data-item-id="${bookmark.id} >
+
                 <h3 class="js-bookmarkHead">${bookmark.title}</h3> 
                 <p>${generateStars(bookmark.rating)}</p>
-           
+
         </button>
             <div class='bookmarkContents hidden' id='${bookmark.id}'>
                 <h4>Description:</h4>
@@ -90,7 +91,7 @@ const render = function () {
 
 const getItemIdFromElement = function (item) {
     return $(item)
-        .closest('.js-bookmark')
+        .closest('.entireBookmark')
         .data('item-id');
 };
 const handleNewBookmarkSubmit = function () {
@@ -151,7 +152,7 @@ function handleMinimumRatingFilter(){
 
 
 
-$('ul.bookmarkList').on('click', '.js-bookmark', event => {
+$('ul.bookmarkList').on('click', '.entireBookmark', event => {
     const id = $(event.currentTarget).children('.bookmarkContents');
     id.toggleClass('hidden');    
     });
@@ -159,7 +160,7 @@ $('ul.bookmarkList').on('click', '.js-bookmark', event => {
 const AddNewItemForm = function (){
     $('.js-new').click(() => {
     
-        $('#js-newBookmark').removeClass('hidden');
+        $('#newBookmarkForm').removeClass('hidden');
         $('.bookmarkList').addClass('hidden');
     });
 
@@ -168,7 +169,7 @@ const AddNewItemForm = function (){
 const removeNewItemPage = function (){
     $('#cancelNewBookmark').click(() => {
     
-        $('#js-newBookmark').addClass('hidden');
+        $('#newBookmarkForm').addClass('hidden');
         $('.bookmarkList').removeClass('hidden');
     });
 

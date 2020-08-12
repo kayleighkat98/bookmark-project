@@ -5,33 +5,61 @@ html{
 .hidden {
     display: none;
 }
-li {
-    list-style: none;
+
+h1 {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Oswald', sans-serif;
+}       
+
+.topRow{
+    padding-top: 5px;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+
 }
 
-body {
-    margin: auto;
-    width: 50%;
 
-    padding: 100px;
-}
 
-.bookmark{
-    border-radius: 5%;
-    width: 95%;
+.newBookmarkForm{
+    margin: 50px;
+    padding-top: 10px;
+    display: flexbox;
+    justify-content: center;
+    padding-bottom: 10px;
+}                               
+
+.bookmarkButton{
+    /* border-radius: 11%; */
+    width: 90%;
+    display:flex;
+    align-items: center;
     background-color: ivory;
 
 }
+li {
+    list-style: none;
+}
 .bookmarkContents{
-
-    width: 95%;
-    background-color: rgb(208, 238, 178);
+    
+    background-color: rgb(189, 197, 180);
 }
 
 button:hover {
     background-color: #6d4449;
     color: white;
-  }
-h1{
-    font-family: 'Oswald', sans-serif;
+}
+
+
+
+@media all and ( min-width: 900px ){
+    main{
+        zoom: 180%
+    };
+    .bookmarkButton{
+        width: 95%;
+    }
 }

@@ -12,9 +12,13 @@
 </head>
 
 <body>
+<main>
+
 
     <!--title-->    
     <h1 class='head'>My (online)Bookshelf</h1>
+
+    <section class="topRow">
 
     <!--new bookmark button-->
     <button type="button" class="js-new">+ New Bookmark</button>
@@ -30,9 +34,9 @@
         <option value="4">★★★★☆ +</option>
         <option value="5">★★★★★ +</option>
     </select>
-
+    </section>
     <!--bookmark input fields-->
-    <form  id="js-newBookmark" class="hidden" >
+    <form  id="newBookmarkForm" class="hidden" >
         <label for="js-newLink">Url: </label>
         <input type="text" class="js-newLink" placeholder="address" >
         <label for="js-newLink" class="required"><small><i>*required</i></small></label>
@@ -62,8 +66,8 @@
 
     <!--filterable bookmarks-->
     <ul class="bookmarkList">
-    </ul>
-
+    </ul> 
+</main>
 </body>
 
 </html>
