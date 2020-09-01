@@ -1,193 +1,163 @@
 import $ from 'jquery';
-import store from './STORE';
+import store from './store';
 import api from './api';
+import templates from './templates';
 
-const generateError = function (message) {
-    return `
-        <section class="error-content">
-            <button id="cancel-error">X</button>
-            <p>${message}</p>
-        </section>`;
-};
-
-
-
-const generateStars = function (numStars) {
-    switch (numStars) {
-      case 1:
-        return '★☆☆☆☆';
-      case 2:
-        return '★★☆☆☆';
-      case 3:
-        return '★★★☆☆';
-      case 4:
-        return '★★★★☆';
-      case 5:
-        return '★★★★★';
-      default:
-        return 'Error, star not in range';
+$.fn.extend({
+    serializeJson: function () {
+      const formData = new FormData(this[0]);
+      const obj = {};
+      formData.forEach((val, name) => obj[name] = val);
+      return JSON.stringify(obj);
     }
-};
-
-const generateItemElement = function (bookmark) { 
-    return `
-      <li class='entireBookmark'data-item-id="${bookmark.id}" >
-        <button class='bookmarkButton' 'data-item-id="${bookmark.id} >
-
-                <h3 class="js-bookmarkHead">${bookmark.title}</h3> 
-                <p>${generateStars(bookmark.rating)}</p>
-
-        </button>
-            <div class='bookmarkContents hidden' id='${bookmark.id}'>
-                <h4>Description:</h4>
-                <p>${bookmark.desc}</p>
-                <button><a href=${bookmark.url} target="_blank" >Visit Site</a></button>
-                <button class="js-item-delete">Delete</button> 
-            </div>
-        
-      </li>
-    `
-    ;
+  });
+//RENDER
+function render(filteredList=null) {
     
+    if (store.isAdding) {
+        $('#js-form').html(templates.form());
+        $('#js-form').show();
+        // $('.js-no-bookmarks-intro').hide();
+      } else {
+        $('.js-list-header').html(templates.pageHeader());
+        $('#js-form').html('');
+        $('#js-form').hide();
+      }
+  
+      if (!store.list.length) {
+        $('.js-list-header').html('');
+        $('.js-bookmark-list').html('');
+        return $('.js-no-bookmarks-intro').html(templates.emptyBookShelf());
+      }
+  
+      const bookmarks = filteredList ? filteredList : store.list;
+      const bookmarkTemplate = bookmarks.map(bookmark => renderBookmarkHtml(bookmark));
+  
+      $('.js-no-bookmarks-intro').html('');
+      $('.js-list-header').html(templates.pageHeader());
+      $('.js-bookmark-list').html(bookmarkTemplate);
 };
 
-
-
-
-const generateBookmarkString = function (bookmarks) {
-    const items = bookmarks.map((item) =>    
-        generateItemElement(item)
-    );
-    return items.join('');
+function renderError(message) {
+    $('.js-error-message').html(templates.error(message));
+    $('.js-error-message').show();
 };
 
-
-
-const renderError = function () {
-    if (store.error) {
-        const el = generateError(store.error);
-        $('.error-container').html(el);
+function renderBookmarkHtml (bookmark) {
+    if (bookmark.isEditing) {
+        return templates.editForm(bookmark);
+    } else if ( bookmark.isExpanded) {
+        return templates.bookmarkExpanded(bookmark);
     } else {
-        $('.error-container').empty();
+        return templates.bookmarkCollapsed(bookmark)
     }
 };
-
-const handleCloseError = function () {
-    $('.error-container').on('click', '#cancel-error', () => {
-        store.setError(null);
-        renderError();
+//EVENT
+function displayForm() {
+    $('.container').on('click', '#new-bookmark', function() {
+        store.isAdding = true;
+        render();
+    });
+};
+function closeForm() {
+    $('.container').on('click', '#close-form', function() {
+        store.isAdding = false;
+        render();
     });
 };
 
-
-const render = function () {
-
-    renderError();
-    let bookmarks = [...store.items].filter(bookmark=>{
-        return bookmark.rating >= store.minimumRating
-    });
-    $('.bookmarkList').html(generateBookmarkString(bookmarks));
-};
-
-const getItemIdFromElement = function (item) {
-    return $(item)
-        .closest('.entireBookmark')
-        .data('item-id');
-};
-const handleNewBookmarkSubmit = function () {
-    $('.createNewBookmark').click(function (event) {
-        
-        event.preventDefault();
-        const newItemUrl = $('.js-newLink').val();
-        const newItemName = $('.js-newName').val();
-        const newItemRating = $('.js-newRating').val();
-        const newItemDescription = $('.js-newDescription').val();
-        const newItemContent = {
-            title : newItemName,   
-            url : newItemUrl,
-            desc: newItemDescription,
-            rating : newItemRating,
-        };
-        $('.js-newLink').val('');
-        $('.js-newName').val('');
-        $('.js-newRating').val('');
-        $('.js-newDescription').val('');
-        $('.bookmarkList').removeClass('hidden');
-   
-        api.createItem(newItemContent)//use function that calls updated search
-            .then((newItem) => {// then with the serch value 
-                store.addItem(newItem);//call the items.map function
-                render();
-                
-            })
-            .catch((error) => {
-                store.setError(error.message);
-                renderError();
-            });
+function submitForm() {
+    $('.container').on('submit', 'form#js-form', function(e) {
+        e.preventDefault();
+        const data = $(e.target).serializeJson();
+        api.addBookmark(data)
+          .then(bookmark => {
+            store.addBookmark(bookmark);
+            render();
+        })
+          .catch(error => {
+            renderError(error.message);
+        });
     });
 };
 
-const handleDeleteItemClicked = function () {
-    $('ul.bookmarkList').on('click', '.js-item-delete', event => {
-        const id = getItemIdFromElement(event.currentTarget);
-
-        api.deleteItem(id)
-            .then(() => {
-                store.findAndDelete(id);
-                render();
-            })
-            .catch((error) => {
-                store.setError(error.message);
-                renderError();
-            });
-    });
-};
-function handleMinimumRatingFilter(){
-    $('#filter').on('change', event => {
-      let rating = $(event.target).val();
-      store.minimumRating = rating;
+function toggleBookmarkView() {
+    $('.js-bookmark-list').on('click', '.header', function(){
+       
+      const id = $(this).closest('li').data('id');
+      store.toggleDrop(id);
       render();
     });
-}
+  };
 
-
-
-$('ul.bookmarkList').on('click', '.entireBookmark', event => {
-    const id = $(event.currentTarget).children('.bookmarkContents');
-    id.toggleClass('hidden');    
+  function bookmarkDelete() {
+    $('.js-bookmark-list').on('click', '.js-item-delete', function() {
+      const id = $(this).closest('li').data('id');
+      api.deleteBookmark(id)
+        .then(() => {
+          store.deleteBookmark(id);
+          render();
+        })
+        .catch(error => {
+          renderError(error.message);
+        });
     });
+  };
 
-const AddNewItemForm = function (){
-    $('.js-new').click(() => {
-    
-        $('#newBookmarkForm').removeClass('hidden');
-        $('.bookmarkList').addClass('hidden');
+  function filterByRating() {
+    $('.container').on('change', '#filter-by-rating', function() {
+      const rating = $(this).val();
+      const filteredList = store.filterByRating(rating);
+      render(filteredList);
     });
+  };
 
-  
-};
-const removeNewItemPage = function (){
-    $('#cancelNewBookmark').click(() => {
-    
-        $('#newBookmarkForm').addClass('hidden');
-        $('.bookmarkList').removeClass('hidden');
+  function closeError() {
+    $('.container').on('click', '#close-error', function() {
+        console.log('fuck');
+      $('.error-content').hide();
     });
+  };
 
-  
-};
+  function toggleEditForm() {
+    $('.js-bookmark-list').on('click', '.edit-bookmark', function() {
+      const id = $(this).closest('li').data('id');
+      store.toggleEdit(id);
+      render();
+    });
+  };
+
+  function editFormSubmit() {
+    $('.js-bookmark-list').on('submit', 'form#js-edit-form', function(e){
+      e.preventDefault();
+      const id = $(this).closest('li').data('id');
+      const data = $(e.target).serializeJson();
+      api.editBookmark(id, data)
+        .then(() => {
+          store.editBookmark(id, data);
+          render();
+        })
+        .catch(error => {
+          renderError(error.message);
+        });
+    });
+  };
 
 
 const bindEventListeners = function () {
-    handleMinimumRatingFilter();
-    removeNewItemPage();
-    AddNewItemForm();
-    handleNewBookmarkSubmit();
-    handleDeleteItemClicked();
-    handleCloseError();
-    
+    displayForm();
+    closeForm();
+    submitForm();
+    toggleBookmarkView();
+    bookmarkDelete();
+    filterByRating();
+    closeError();
+    toggleEditForm();
+    editFormSubmit();
+   
 };
 export default {
     render,
-    bindEventListeners,
-    
+    renderError,
+    bindEventListeners
 };

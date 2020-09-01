@@ -8,66 +8,21 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
     </style>
-    <title>Document</title>
+    <title>Online Bookshelf</title>
 </head>
 
 <body>
-<main>
-
-
-    <!--title-->    
-    <h1 class='head'>My (online)Bookshelf</h1>
-
-    <section class="topRow">
-
-    <!--new bookmark button-->
-    <button type="button" class="js-new">+ New Bookmark</button>
-    <br>
-    <br>
-    <!-- dropdown filter-->
-    <label for="filter">Filter :</label>
-    <select id="filter">
-        <option value="0">Show All</option>
-        <option value="1">★☆☆☆☆ +</option>
-        <option value="2">★★☆☆☆ +</option>
-        <option value="3">★★★☆☆ +</option>
-        <option value="4">★★★★☆ +</option>
-        <option value="5">★★★★★ +</option>
-    </select>
-    </section>
-    <!--bookmark input fields-->
-    <form  id="newBookmarkForm" class="hidden" >
-        <label for="js-newLink">Url: </label>
-        <input type="text" class="js-newLink" placeholder="address" >
-        <label for="js-newLink" class="required"><small><i>*required</i></small></label>
-        
-        <br>
-
-        <label for="js-newName">Name:</label>
-        <input type="text" class="js-newName" placeholder="name" >
-        <label for="js-newName"class="required"><small><i>*required 1-5</i></small></label>
-
-        <br>
-
-        <label for="js-newRating">Rating:</label>
-        <input class="js-newRating" type="text" placeholder=" 1-5">
-        <label for="js-newRating"class="required"><small><i>*required</i></small></label>
-        
-        <br>
-
-        <label for="js-newDescription">Description:</label>
-        <input type="text" class="js-newDescription" placeholder="Description">
-
-        <br>
-
-        <button type="reset" id='cancelNewBookmark' value="cancel">Cancel</button>
-        <button type="submit" class='createNewBookmark' value="create">Create</button>
-    </form>  
-
-    <!--filterable bookmarks-->
-    <ul class="bookmarkList">
-    </ul> 
-</main>
+    <div class='container'>
+        <main role='main'>
+          <div class='js-error-message hidden'></div>
+          <section role='region'>
+            <div class='js-list-header'></div>
+            <form id='js-form' class='hidden'></form>
+            <div class='js-no-bookmarks-intro'></div>
+            <ul class='js-bookmark-list'></ul>
+          </section>
+        </main>
+      </div>
 </body>
 
 </html>

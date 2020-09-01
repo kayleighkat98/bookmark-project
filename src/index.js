@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import api from './api';
 import './index.css';
-import store from './STORE';
+import store from './store';
 import bookmarks from './App';
 
 
@@ -9,16 +9,17 @@ import bookmarks from './App';
 
 
 const main = function () {
-  api.getMarks()
+  api.getBookmarks()
     
-    .then((items)  => { 
-      items.forEach((item) => (
-        store.addItem(item)
-      ));
-      bookmarks.render(); 
-    });
-  bookmarks.bindEventListeners();
-  bookmarks.render();
+  .then((list) => {
+    store.list = list;
+    bookmarks.render();
+  })
+  .catch(error => {
+    bookmarks.renderError(error.message);
+  });
+
+  bookmarks.bindEventListeners(); 
 };
   
 $(main)
