@@ -39,6 +39,9 @@ function toggleEdit(id) {
     const bookmark = this.findById(id);
         bookmark.isEditing = !bookmark.isEditing;
 }
+// function toggleError(){
+
+// }
 
 function filterByRating(rating) {
     this.filterBy = Number(rating);

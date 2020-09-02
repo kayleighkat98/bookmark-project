@@ -3,10 +3,25 @@ import store from './store';
         return `
         
         <div class="error-content">
-            <button type='reset' id="cancel-error">X</button>
+            <button id="cancel-error">X</button>
             <p>${message}</p>
         </div>`;
     } 
+    function htmlBones(){
+        return `
+        <div class='container'>
+            <main role='main'>
+                <div class='js-error-message hidden'></div>
+                <section role='region'>
+                    <div class='js-list-header'></div>
+                    <form id='js-form' class='hidden'></form>
+                    <div class='js-no-bookmarks-intro'></div>
+                    <ul class='js-bookmark-list'></ul>
+                </section>
+            </main>
+        </div>
+        `
+    }
     function emptyBookShelf() {
         return `
             <h2>Welcome to your bookshelf!</h2>
@@ -37,18 +52,20 @@ import store from './store';
     }
     function form() {
         return `
+        <br>
         <ul class ='flex-outer'>
-            <li class='form-field'>
+            
+            <li class='form-field new-bookmark '>
                 <label for="js-newName" >Title:</label>
                 <input type="text" name='title' class="js-newName" placeholder="name">
             </li>
 
-            <li class='form-field'>
+            <li class='form-field new-bookmark '>
                 <label for="js-newLink">Url: </label>
                 <input type="text" name='url' class="js-newLink" placeholder="address">
             </li>
 
-            <li class='form-field description'>
+            <li class='form-field description new-bookmark '>
                 <label for="js-newDescription">Description:</label>
                 <input type="text" name='desc' class="js-newDescription" placeholder="Description">
             </li>
@@ -64,7 +81,7 @@ import store from './store';
                     </ul>
             </fieldset></li>
 
-            <li class='form-controls'>
+            <li class='form-controls flex-outer'>
                 <button type="submit" class='createNewBookmark' value="create">Create</button>
             </li>
             <li>
@@ -75,7 +92,7 @@ import store from './store';
     }
     function editForm(bookmark){
         return `
-        <li class='bookmark' data-id='${bookmark.id}'>
+        <li class='edit-bookmark' data-id='${bookmark.id}'>
           <div class='header'>
             <h3>${bookmark.title}</h3>
           </div>
@@ -158,6 +175,7 @@ import store from './store';
     }
 
     export default {
+        htmlBones,
         emptyBookShelf,
         pageHeader,
         error,
@@ -168,22 +186,3 @@ import store from './store';
         bookmarkExpanded
     };
     
-//     <select id="filter-by-rating">
-//     <option value="0">Show All</option>
-//     <option value="1">★☆☆☆☆ +</option>
-//     <option value="2">★★☆☆☆ +</option>
-//     <option value="3">★★★☆☆ +</option>
-//     <option value="4">★★★★☆ +</option>
-//     <option value="5">★★★★★ +</option>
-// </select>
-
-
-
-// <label for="js-newRating">Rating:</label>
-// <select class='form-field js-newRating'>
-//     <option value='1'>★☆☆☆☆ </option>
-//     <option value='2'>★★☆☆☆ </option>
-//     <option value='3'>★★★☆☆ </option>
-//     <option value='4'>★★★★☆ </option>
-//     <option value='5'>★★★★★ </option>
-// </select>

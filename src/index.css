@@ -17,9 +17,9 @@ h1 {
 li {
     list-style: none;
 }
-.expanded-bookmark{
+.new-bookmark, .expanded-bookmark, .edit-bookmark{
     
-    background-color: rgb(189, 197, 180);
+    background-color: rgba(193, 197, 180, 0.548);
 }
 
 button:hover {
@@ -34,15 +34,17 @@ button:hover {
     };
 
 }
+
 .container {
     width: 80%;
     max-width: 1200px;
     margin: 0 auto;
   }
   
-  .container * {
+.container * {
     box-sizing: border-box;
-  }
+}
+
 .flex-outer,
 .flex-inner {
   list-style-type: none;
