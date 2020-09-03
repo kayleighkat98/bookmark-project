@@ -11,9 +11,26 @@ import store from './store';
         return `
         <div class='container'>
             <main role='main'>
+                <h1>Welcome to your bookshelf!</h1>
+
+                <div class='bookmark-controls'>
+                    <button type="button" id='new-bookmark' class="button js-new">+ New Bookmark</button>
+                    
+                    <label for='filter-by-rating'>Filter :</label>
+                    <select id='filter-by-rating'>
+                        <option value="" ${store.filterBy === '' ? 'selected="selected"' : ''}>All</option>
+                        <option value="1" ${store.filterBy === 1 ? 'selected="selected"' : ''}>1 Star</option>
+                        <option value="2" ${store.filterBy === 2 ? 'selected="selected"' : ''}>2 Stars</option>
+                        <option value="3" ${store.filterBy === 3 ? 'selected="selected"' : ''}>3 Stars</option>
+                        <option value="4" ${store.filterBy === 4 ? 'selected="selected"' : ''}>4 Stars</option>
+                        <option value="5" ${store.filterBy === 5 ? 'selected="selected"' : ''}>5 Stars</option>
+                    </select>
+    
+                </div>
+            
+                
                 <div class='js-error-message hidden'></div>
                 <section role='region'>
-                    <div class='js-list-header'></div>
                     <form id='js-form' class='hidden'></form>
                     <div class='js-no-bookmarks-intro'></div>
                     <ul class='js-bookmark-list'></ul>
@@ -24,45 +41,25 @@ import store from './store';
     }
     function emptyBookShelf() {
         return `
-            <h2>Welcome to your bookshelf!</h2>
-            <button type="button" id='new-bookmark' class="button js-new">+ New Bookmark</button>
             <p>No bookmarks to show...</p>
         `
-    }
-    function pageHeader() {
-        return `
-        <h1 class='head'>My (online)Bookshelf</h1>
-
-        <div class='bookmark-controls'>
-
-            <button class='button' id='new-bookmark'>+ New Bookmark</button>
-
-            <label for='filter-by-rating'>Filter :</label>
-            <select id='filter-by-rating'>
-                <option value="" ${store.filterBy === '' ? 'selected="selected"' : ''}>All</option>
-                <option value="1" ${store.filterBy === 1 ? 'selected="selected"' : ''}>1 Star</option>
-                <option value="2" ${store.filterBy === 2 ? 'selected="selected"' : ''}>2 Stars</option>
-                <option value="3" ${store.filterBy === 3 ? 'selected="selected"' : ''}>3 Stars</option>
-                <option value="4" ${store.filterBy === 4 ? 'selected="selected"' : ''}>4 Stars</option>
-                <option value="5" ${store.filterBy === 5 ? 'selected="selected"' : ''}>5 Stars</option>
-            </select>
-
-        </div>
-        `;
     }
     function form() {
         return `
         <br>
+
+        
         <ul class ='flex-outer'>
-            
+  
+
             <li class='form-field new-bookmark '>
                 <label for="js-newName" >Title:</label>
-                <input type="text" name='title' class="js-newName" placeholder="name">
+                <input type="text" name='title' class="js-newName" placeholder="Name">
             </li>
 
             <li class='form-field new-bookmark '>
                 <label for="js-newLink">Url: </label>
-                <input type="text" name='url' class="js-newLink" placeholder="address">
+                <input type="text" name='url' class="js-newLink" placeholder="Address">
             </li>
 
             <li class='form-field description new-bookmark '>
@@ -71,7 +68,7 @@ import store from './store';
             </li>
 
             <li><fieldset class='form-field'>
-                <p>Rating</p>
+                <p>Rating:</p>
                     <ul class='flex-inner'>
                         <li><label> <input type="radio" name="rating" value="1"> 1 </label></li>
                         <li><label> <input type="radio" name="rating" value="2"> 2 </label></li>
@@ -80,13 +77,12 @@ import store from './store';
                         <li><label> <input type="radio" name="rating" value="5"> 5 </label></li>
                     </ul>
             </fieldset></li>
+            <section class='flex-buttons'>
+            <button type="submit" class='flex-button' value="create">Create</button>
+            <button type="reset" class='flex-button' id='close-form' value="cancel">Close</button>
+        </section>
+        
 
-            <li class='form-controls flex-outer'>
-                <button type="submit" class='createNewBookmark' value="create">Create</button>
-            </li>
-            <li>
-             <button type="reset" id='close-form' value="cancel">Cancel</button>
-            </li>
         </ul>
         `;
     }
@@ -115,9 +111,9 @@ import store from './store';
                     <textarea form='js-edit-form' name='desc' id='edit-bookmark-desc'>${bookmark.desc ? bookmark.desc : 'no description given'}</textarea>
                 </div>
                 
-                <span class='edit-bookmark'><button>cancel edit</button></span>
+                <span class='edit-bookmark'><button>cancel</button></span>
               </div>
-              <button type='submit' class='button small'>Update Bookmark</button>
+              <button type='submit' class='button small'>Update</button>
             </form>
           </div>
         </li>
@@ -141,9 +137,9 @@ import store from './store';
     };
     function bookmarkCollapsed(bookmark) {
         return `
-            <li class='bookmark' data-id='${bookmark.id}'>
+            <li class='bookmark collapsed-bookmark' data-id='${bookmark.id}'>
                 <div class='header'>
-                    <h3>${bookmark.title}</h3>
+                    <h3 class='bookmark-title' >${bookmark.title}</h3>
                 </div>
                 
                 <div class='rating'>
@@ -156,20 +152,26 @@ import store from './store';
     function bookmarkExpanded(bookmark) {
         return ` 
             <li class = 'bookmark expanded-bookmark' data-id='${bookmark.id}'>
-                <div class='header'>
-                    <h3>${bookmark.title}</h3>
-                    ${bookmark.rating ? rating(bookmark.rating) : 'No Rating'}
-                </div>
-                
-                <div class='body'>
-                    <p>
-                        ${bookmark.desc ? bookmark.desc : 'No Description'}
-                    </p>
-                    <button><a href=${bookmark.url} target="_blank" >Visit Site</a></button>
-                    <span class='edit-bookmark'> <button >Edit</button></span>
-                    <button class="js-item-delete">Delete</button> 
 
-                </div>
+
+                    <div class='header'>
+                        <h3>${bookmark.title}</h3>
+                        ${bookmark.rating ? rating(bookmark.rating) : 'No Rating'}
+                    </div>
+                    
+                    <div>
+                        <p>${bookmark.desc ? bookmark.desc : 'No Description'}</p>
+                    </div>
+                    <div >
+                        <button><a href=${bookmark.url} target="_blank" >Visit Site</a></button>
+
+ 
+                        <button class='edit-bookmark-btn' >Edit</button >
+
+                        <button class="js-item-delete">Delete</button> 
+                    </div>
+                        
+
             </li>
         `;
     }
@@ -177,7 +179,7 @@ import store from './store';
     export default {
         htmlBones,
         emptyBookShelf,
-        pageHeader,
+
         error,
         form,
         editForm,

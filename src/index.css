@@ -13,13 +13,13 @@ h1 {
     align-items: center;
     font-family: 'Oswald', sans-serif;
 }       
-                      
+
+
 li {
     list-style: none;
 }
-.new-bookmark, .expanded-bookmark, .edit-bookmark{
-    
-    background-color: rgba(193, 197, 180, 0.548);
+.new-bookmark .expanded-bookmark, .edit-bookmark, .form-field, .bookmark-controls{
+  background-color: rgba(193, 197, 180, 0.548);
 }
 
 button:hover {
@@ -27,91 +27,83 @@ button:hover {
     color: white;
 }
 
-
-@media all and ( min-width: 900px ){
-    main{
-        zoom: 180%
-    };
-
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: inherit;
 }
 
-.container {
+
+/*Switches to desktop view*/@media all and ( min-width: 900px ){
+  main{
+    zoom: 180%}
+;}
+
+
+
+/*Centers content*/.container {
     width: 80%;
     max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-.container * {
-    box-sizing: border-box;
-}
+    margin: 0 auto;}
 
-.flex-outer,
-.flex-inner {
+
+/*Sets input width*/.flex-outer,.flex-inner {
   list-style-type: none;
-  padding: 0;
-}
+  padding: 0;}
 
-.flex-outer {
-  max-width: 800px;
-  margin: 0 auto;
-}
+  
 
-.flex-outer li,
-.flex-inner {
-  display: flex;
+/*Aligns input and options*/.flex-outer li,.flex-inner{  display: flex;
   flex-wrap: wrap;
-  align-items: center;
-}
+  align-items: center;}
 
-.flex-inner {
-  padding: 0 8px;
-  justify-content: space-between;  
-}
 
-.flex-outer > li:not(:last-child) {
-  margin-bottom: 20px;
-}
+/*Align form*/.flex-outer > li > label,.flex-outer li p {
+  flex: 1 0 120px;
+  max-width: 220px;}
 
-.flex-outer li label,
-.flex-outer li p {
+/*Aligns form further*/.flex-outer > li > label + *,.flex-inner {
+  flex: 1 0 220px;}
+
+/*Add gap between items*/.flex-outer > li:not(:last-child) {
+  margin-bottom: 20px;}
+
+
+/*Touch up text*/.flex-outer li label,.flex-outer li p, .bookmark-title{
   padding: 8px;
   font-weight: 300;
   letter-spacing: .09em;
-  text-transform: uppercase;
-}
+  text-transform: uppercase;}
 
-.flex-outer > li > label,
-.flex-outer li p {
-  flex: 1 0 120px;
-  max-width: 220px;
-}
-
-.flex-outer > li > label + *,
-.flex-inner {
-  flex: 1 0 220px;
-}
-
-.flex-outer li p {
-  margin: 0;
-}
-
-.flex-outer li input:not([type='checkbox']),
-.flex-outer li textarea {
+  
+/*Makes input pretty*/.flex-outer li input:not([type='checkbox']),.flex-outer li textarea {
   padding: 15px;
-  border: none;
-}
+  border: none;}
 
-.flex-outer li button {
-  margin-left: auto;
+
+/*Styles flex-list buttons*/.flex-outer li button {
   padding: 8px 16px;
   border: none;
   background: #333;
   color: #f2f2f2;
   text-transform: uppercase;
   letter-spacing: .09em;
-  border-radius: 2px;
-}
+  border-radius: 2px;}
 
-.flex-inner li {
-  width: 100px;
-}
+
+/*Resize inner flex-list*/.flex-inner li {
+  width: 100px;}
+
+
+/*Default button row style*/.flex-buttons {
+  padding: 8px 16px;
+  border-radius: 2px;
+  margin-bottom: 20px;}
+
+
+/*Default button style*/.flex-button, button{
+  background: rgba(26, 21, 54, 0.664);
+  color: #f2f2f2;
+  letter-spacing: .09em;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  border: none;}
