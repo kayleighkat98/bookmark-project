@@ -67,8 +67,9 @@ import store from './store';
                 <input type="text" name='desc' class="js-newDescription" placeholder="Description">
             </li>
 
-            <li><fieldset class='form-field'>
-                <p>Rating:</p>
+            <li>
+                <fieldset class='form-field'>
+                    <p>Rating:</p>
                     <ul class='flex-inner'>
                         <li><label> <input type="radio" name="rating" value="1"> 1 </label></li>
                         <li><label> <input type="radio" name="rating" value="2"> 2 </label></li>
@@ -76,11 +77,13 @@ import store from './store';
                         <li><label> <input type="radio" name="rating" value="4"> 4 </label></li>
                         <li><label> <input type="radio" name="rating" value="5"> 5 </label></li>
                     </ul>
-            </fieldset></li>
-            <section class='flex-buttons'>
-            <button type="submit" class='flex-button' value="create">Create</button>
-            <button type="reset" class='flex-button' id='close-form' value="cancel">Close</button>
-        </section>
+                </fieldset>
+            </li>
+            
+            <div class='flex-buttons'>
+                <button type="submit" class='flex-button' value="create">Create</button>
+                <button type="reset" class='flex-button' id='close-form' value="cancel">Close</button>
+            </div>
         
 
         </ul>
